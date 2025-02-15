@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>CustomerManagement Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="findCustomer" engine="java" location="com.companyname.ofbizdemo.services.CustomerService" invoke="findCustomer">
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="postalAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="customerList" type="List" mode="OUT"/>
+    </service>
+
+
+    <service name="createCustomer" engine="java" location="com.companyname.ofbizdemo.services.CustomerService" invoke="createCustomer">
+
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="OUT" optional="true"/>
+        <attribute name="message" type="String" mode="OUT" optional="true"/>
+
+    </service>
+
+
+
+    <service name="updateCustomer" engine="java" location="com.companyname.ofbizdemo.services.CustomerService" invoke="updateCustomer">
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/> <!-- Required -->
+        <attribute name="postalAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="OUT"/>
+        <attribute name="message" type="String" mode="OUT"/>
+    </service>
+
+
+    <service name="createCustomerRelationship" engine="java" location="com.companyname.ofbizdemo.services.CustomerService" invoke="createCustomerRelationship">
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="message" type="String" mode="OUT"/>
+    </service>
+
+    <service name="updateCustomerRelationship" engine="java" location="com.companyname.ofbizdemo.services.CustomerService" invoke="updateCustomerRelationship">
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="message" type="String" mode="OUT"/>
+    </service>
+
+
+
+</services>

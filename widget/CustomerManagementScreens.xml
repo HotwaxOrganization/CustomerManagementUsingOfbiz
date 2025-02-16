@@ -61,4 +61,23 @@ under the License.
     </screen>
 
 
+    <screen name="findCustomerScreen">
+        <section>
+            <widgets>
+                <decorator-screen name="CustomerManagementCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="updateCustomer">
+
+                            <platform-specific>
+                                <html><html-template location="component://customerManagement/webapp/customerManagement/templates/findCustomer.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+
 </screens>

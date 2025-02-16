@@ -24,13 +24,27 @@ under the License.
     <vendor></vendor>
     <version>1.0</version>
 
+<!--    <service name="findCustomer" engine="java" location="com.companyname.ofbizdemo.services.CustomerService" invoke="findCustomer">-->
+<!--        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="firstName" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="lastName" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="postalAddress" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="customerList" type="List" mode="OUT"/>-->
+<!--    </service>-->
+
+
     <service name="findCustomer" engine="java" location="com.companyname.ofbizdemo.services.CustomerService" invoke="findCustomer">
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="customerName" type="String" mode="IN" optional="true"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
-        <attribute name="firstName" type="String" mode="IN" optional="true"/>
-        <attribute name="lastName" type="String" mode="IN" optional="true"/>
         <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
         <attribute name="postalAddress" type="String" mode="IN" optional="true"/>
+
         <attribute name="customerList" type="List" mode="OUT"/>
+        <attribute name="currentPage" type="Integer" mode="OUT"/>
+        <attribute name="totalPages" type="Integer" mode="OUT"/>
+        <attribute name="totalRecords" type="Integer" mode="OUT"/>
     </service>
 
 

@@ -23,6 +23,7 @@ under the License.
 
         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
         <menu-item name="updateCustomer" title="UpdateCustomer"><link target="updateCustomer"/></menu-item>
+        <menu-item name="findCustomerScreen" title="findCustomer"><link target="findCustomerScreen"/></menu-item>
 
     </menu>
 </menus>

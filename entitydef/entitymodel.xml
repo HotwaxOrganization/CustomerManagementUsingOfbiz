@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <entity-model entity-name="FindCustomerView" package-name="org.apache.ofbiz.customer"
               xmlns="http://ofbiz.apache.org/dtd/entitydef_1.0.dtd">
 
@@ -9,23 +10,26 @@
         <member-entity entity-alias="PCM_Email" entity-name="PartyContactMechPurpose"/>
         <member-entity entity-alias="CM_Email" entity-name="ContactMech"/>
 
-        <member-entity entity-alias="PCM_Phone" entity-name="PartyContactMechPurpose"/>
-        <member-entity entity-alias="CM_Phone" entity-name="ContactMech"/>
+        <member-entity entity-alias="PCM_Phone" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="TelecomNumber" entity-name="TelecomNumber"/>
 
-        <member-entity entity-alias="PCM_Postal" entity-name="PartyContactMechPurpose"/>
-        <member-entity entity-alias="CM_Postal" entity-name="ContactMech"/>
+        <member-entity entity-alias="PCM_Postal" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="PostalAddress" entity-name="PostalAddress"/>
 
+        <!-- Defining alias names for output -->
         <alias entity-alias="Party" name="partyId"/>
         <alias entity-alias="Person" name="firstName"/>
         <alias entity-alias="Person" name="lastName"/>
         <alias entity-alias="CM_Email" name="emailAddress" field="infoString"/>
-        <alias entity-alias="CM_Phone" name="contactNumber"/>
-        <alias entity-alias="CM_Postal" name="postalAddress"/>
+        <alias entity-alias="TelecomNumber" name="contactNumber" field="contactNumber"/>
+        <alias entity-alias="PostalAddress" name="postalAddress" field="address1"/>
 
+        <!-- Linking Party with Person -->
         <view-link entity-alias="Party" rel-entity-alias="Person">
             <key-map field-name="partyId"/>
         </view-link>
 
+        <!-- Linking Party with Email (Filtering by PRIMARY_EMAIL) -->
         <view-link entity-alias="Party" rel-entity-alias="PCM_Email">
             <key-map field-name="partyId"/>
         </view-link>
@@ -33,38 +37,27 @@
             <key-map field-name="contactMechId"/>
         </view-link>
 
+        <!-- Filtering only PRIMARY_EMAIL -->
+        <member-entity entity-alias="PCM_Filter_Email" entity-name="PartyContactMechPurpose"/>
+        <view-link entity-alias="PCM_Email" rel-entity-alias="PCM_Filter_Email">
+            <key-map field-name="partyId"/>
+            <key-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL" operator="EQUALS" is-field="false"/>
+        </view-link>
+
+        <!-- Linking Party with Phone -->
         <view-link entity-alias="Party" rel-entity-alias="PCM_Phone">
             <key-map field-name="partyId"/>
         </view-link>
-        <view-link entity-alias="PCM_Phone" rel-entity-alias="CM_Phone">
+        <view-link entity-alias="PCM_Phone" rel-entity-alias="TelecomNumber">
             <key-map field-name="contactMechId"/>
         </view-link>
 
+        <!-- Linking Party with Postal Address -->
         <view-link entity-alias="Party" rel-entity-alias="PCM_Postal">
             <key-map field-name="partyId"/>
         </view-link>
-
-        <view-link entity-alias="PCM_Postal" rel-entity-alias="CM_Postal">
+        <view-link entity-alias="PCM_Postal" rel-entity-alias="PostalAddress">
             <key-map field-name="contactMechId"/>
-        </view-link>
-
-        <member-entity entity-alias="PCM_Filter_Email" entity-name="PartyContactMechPurpose"/>
-        <member-entity entity-alias="PCM_Filter_Phone" entity-name="PartyContactMechPurpose"/>
-        <member-entity entity-alias="PCM_Filter_Postal" entity-name="PartyContactMechPurpose"/>
-
-        <view-link entity-alias="PCM_Email" rel-entity-alias="PCM_Filter_Email">
-            <key-map field-name="partyId"/>
-            <key-map field-name="contactMechPurposeTypeId" value="EmailPrimary" operator="EQUALS" is-field="false"/>
-        </view-link>
-
-        <view-link entity-alias="PCM_Phone" rel-entity-alias="PCM_Filter_Phone">
-            <key-map field-name="partyId"/>
-            <key-map field-name="contactMechPurposeTypeId" value="PhonePrimary" operator="EQUALS" is-field="false"/>
-        </view-link>
-
-        <view-link entity-alias="PCM_Postal" rel-entity-alias="PCM_Filter_Postal">
-            <key-map field-name="partyId"/>
-            <key-map field-name="contactMechPurposeTypeId" value="PostalAddressPrimary" operator="EQUALS" is-field="false"/>
         </view-link>
 
     </view-entity>

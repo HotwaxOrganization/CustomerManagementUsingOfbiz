@@ -102,7 +102,7 @@ public class CustomerService {
         }
 
         try {
-            // ✅ Ensure PRIMARY_EMAIL exists in ContactMechPurposeType
+            //  Ensure PRIMARY_EMAIL exists in ContactMechPurposeType
             GenericValue emailPurposeType = EntityQuery.use(delegator)
                     .from("ContactMechPurposeType")
                     .where("contactMechPurposeTypeId", "PRIMARY_EMAIL")

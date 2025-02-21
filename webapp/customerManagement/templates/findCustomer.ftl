@@ -37,7 +37,6 @@
                 <td>${customer.firstName!} ${customer.lastName!}</td>
                 <td>${customer.emailAddress! "N/A"}</td>
 
-                <!-- ✅ FIX: Check if `contactNumber` exists before using -->
                 <td>
                     <#if customer?keys?seq_contains("contactNumber")>
                         ${customer.contactNumber}
@@ -46,7 +45,6 @@
                     </#if>
                 </td>
 
-                <!-- ✅ FIX: Check if `postalAddress` exists before using -->
                 <td>
                     <#if customer?keys?seq_contains("postalAddress")>
                         ${customer.postalAddress}

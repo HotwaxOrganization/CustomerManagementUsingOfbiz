@@ -3,25 +3,25 @@
 <!-- Customer Search Form -->
 <form method="get" action="<@ofbizUrl>findCustomer</@ofbizUrl>">
     <label>Party ID:</label>
-    <input type="text" name="partyId" value="${requestParameters.partyId!}"><br>
+    <input type="text" name="partyId" ><br>
 
     <label>Customer Name:</label>
-    <input type="text" name="customerName" value="${requestParameters.customerName!}"><br>
+    <input type="text" name="customerName" ><br>
 
     <label>Email Address:</label>
-    <input type="text" name="emailAddress" value="${requestParameters.emailAddress!}"><br>
+    <input type="text" name="emailAddress" ><br>
 
     <label>Phone Number:</label>
-    <input type="text" name="contactNumber" value="${requestParameters.contactNumber!}"><br>
+    <input type="text" name="contactNumber" ><br>
 
     <label>Address:</label>
-    <input type="text" name="postalAddress" value="${requestParameters.postalAddress!}"><br>
+    <input type="text" name="postalAddress" ><br>
 
     <button type="submit">Search</button>
 </form>
 
 <!-- Display Results -->
-<#if requestAttributes.customerList?? && requestAttributes.customerList?size gt 0>
+<#if requestAttributes.customerList??>
     <h2>Search Results</h2>
     <table border="1">
         <tr>
@@ -56,20 +56,7 @@
         </#list>
     </table>
 
-    <!-- Pagination Controls -->
-    <#if requestAttributes.totalPages?? && requestAttributes.totalPages gt 1>
-        <div>
-            <#if requestAttributes.currentPage?? && requestAttributes.currentPage gt 1>
-                <a href="<@ofbizUrl>findCustomer?currentPage=${requestAttributes.currentPage - 1}&partyId=${requestParameters.partyId!}&customerName=${requestParameters.customerName!}&emailAddress=${requestParameters.emailAddress!}&contactNumber=${requestParameters.contactNumber!}&postalAddress=${requestParameters.postalAddress!}</@ofbizUrl>">Previous</a>
-            </#if>
 
-            Page ${requestAttributes.currentPage} of ${requestAttributes.totalPages}
-
-            <#if requestAttributes.currentPage?? && requestAttributes.currentPage lt requestAttributes.totalPages>
-                <a href="<@ofbizUrl>findCustomer?currentPage=${requestAttributes.currentPage + 1}&partyId=${requestParameters.partyId!}&customerName=${requestParameters.customerName!}&emailAddress=${requestParameters.emailAddress!}&contactNumber=${requestParameters.contactNumber!}&postalAddress=${requestParameters.postalAddress!}</@ofbizUrl>">Next</a>
-            </#if>
-        </div>
-    </#if>
 <#else>
     <p>No customers found.</p>
 </#if>

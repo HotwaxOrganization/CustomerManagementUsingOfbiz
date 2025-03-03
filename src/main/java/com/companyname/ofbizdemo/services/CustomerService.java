@@ -24,7 +24,6 @@ public class CustomerService {
     public static final String MODULE = CustomerService.class.getName();
 
 
-    private static final int PAGE_SIZE = 10;
 
     public static Map<String, Object> findCustomer(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -36,8 +35,6 @@ public class CustomerService {
         String emailAddress = (String) context.get("emailAddress");
         String contactNumber = (String) context.get("contactNumber");
         String postalAddress = (String) context.get("postalAddress");
-        Integer currentPage = (Integer) context.get("currentPage");
-        if (currentPage == null || currentPage < 1) currentPage = 1;
 
         try {
             if (partyId != null && !partyId.isEmpty()) {
@@ -65,17 +62,9 @@ public class CustomerService {
                     .orderBy("partyId")
                     .queryList();
 
-            int totalRecords = fullCustomerList.size(); // 🔥 Get total records count
-            int totalPages = (int) Math.ceil((double) totalRecords / PAGE_SIZE);
-            int offset = (currentPage - 1) * PAGE_SIZE;
-            int endIndex = Math.min(offset + PAGE_SIZE, totalRecords);
+        
 
-            List<GenericValue> paginatedList = fullCustomerList.subList(offset, endIndex); // 🔥 Manual Pagination
-
-            result.put("customerList", paginatedList);
-            result.put("currentPage", currentPage);
-            result.put("totalPages", totalPages);
-            result.put("totalRecords", totalRecords);
+            result.put("customerList", fullCustomerList);
 
 
         } catch (GenericEntityException e) {
@@ -345,8 +334,6 @@ public class CustomerService {
             GenericValue existingRelationship = EntityQuery.use(delegator)
                     .from("PartyRelationship")
                     .where("partyIdFrom", partyIdFrom, "partyIdTo", partyIdTo, "partyRelationshipTypeId", partyRelationshipTypeId)
-                    .orderBy("-fromDate") // Get the latest relationship
-                    .filterByDate() // Ensure it is still active
                     .queryFirst();
 
             if (existingRelationship != null) {
